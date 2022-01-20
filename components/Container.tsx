@@ -1,3 +1,4 @@
+import ExternalLink from '@/components/ExternalLink';
 import Navigation from '@/components/Navigation/Navigation';
 import Footer from '@/shared/layout/Footer';
 import Header from '@/shared/layout/Header';
@@ -47,7 +48,9 @@ const Container: FC<ContainerProps> = ({ children, ...customMeta }) => {
                 {children}
             </Main>
             <Footer>
-
+                <ExternalLink href="https://github.com/qysp">
+                    GitHub
+                </ExternalLink>
             </Footer>
         </Fragment>
     );
