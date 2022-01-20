@@ -1,3 +1,4 @@
+import { bgColor, fgColor } from '@/util/style';
 import { css, Global } from '@emotion/react';
 import { FC } from 'react';
 
@@ -36,8 +37,8 @@ const GlobalStyles: FC<GlobalStylesProps> = () => (
                 display: grid;
                 grid-template-rows: auto 1fr auto;
                 justify-content: center;
-                color: rgb(var(--fg));
-                background-color: rgb(var(--bg));
+                color: ${fgColor()};
+                background-color: ${bgColor()};
             }
         `}
     />

@@ -1,4 +1,4 @@
-import GlobalStyles from '@/shared/GlobalStyles.css';
+import GlobalStyles from '@/shared/GlobalStyles';
 import NextDocument, { Head, Html, Main, NextScript } from 'next/document';
 
 class Document extends NextDocument {

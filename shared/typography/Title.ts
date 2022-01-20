@@ -12,11 +12,17 @@ export enum TitleSize {
 
 export type TitleProps = {
     size?: TitleSize;
+    noMargin?: boolean;
 };
 
-const Title = styled.h1<TitleProps>`
-    color: ${fgColor()};
-    font-size: ${({ size = TitleSize.MD }) => size}rem;
-`;
+const Title = styled.h1<TitleProps>({
+    color: fgColor(),
+}, ({
+    size = TitleSize.MD,
+    noMargin = false,
+}) => ({
+    fontSize: `${size}rem`,
+    ...(noMargin && { margin: 0 }),
+}));
 
 export default Title;
