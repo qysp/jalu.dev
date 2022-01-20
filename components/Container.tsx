@@ -19,7 +19,7 @@ const Container: FC<ContainerProps> = ({ children, ...customMeta }) => {
     const meta: Meta = {
         title: 'Hey, this is Jalu 👋',
         description: 'Full Stack Webdeveloper from Germany.',
-        image: url('/images/preview_image.jpg'),
+        image: url('/images/avatar.jpg'),
         ...customMeta,
     };
 

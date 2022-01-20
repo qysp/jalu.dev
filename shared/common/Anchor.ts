@@ -1,4 +1,4 @@
-import { fgColor } from '@/util/style';
+import { fgColor, linearGradient } from '@/util/style';
 import styled from '@emotion/styled';
 
 const Anchor = styled.a({
@@ -6,7 +6,7 @@ const Anchor = styled.a({
     textDecoration: 'none',
 
     '&:hover': {
-        background: 'linear-gradient(to right, rgb(248, 212, 83), rgb(255, 93, 91))',
+        background: linearGradient(),
         backgroundClip: 'text',
         WebkitTextFillColor: 'transparent',
     },

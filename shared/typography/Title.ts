@@ -13,6 +13,7 @@ export enum TitleSize {
 export type TitleProps = {
     size?: TitleSize;
     noMargin?: boolean;
+    fitContent?: boolean;
 };
 
 const Title = styled.h1<TitleProps>({
@@ -20,9 +21,11 @@ const Title = styled.h1<TitleProps>({
 }, ({
     size = TitleSize.MD,
     noMargin = false,
+    fitContent = false,
 }) => ({
     fontSize: `${size}rem`,
     ...(noMargin && { margin: 0 }),
+    ...(fitContent && { width: 'fit-content' }),
 }));
 
 export default Title;

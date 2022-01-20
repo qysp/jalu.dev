@@ -1,4 +1,4 @@
-import { easeInOut, fgColor } from '@/util/style';
+import { fgColor } from '@/util/style';
 import styled from '@emotion/styled';
 
 const Button = styled.button({
@@ -9,7 +9,7 @@ const Button = styled.button({
     border: 'none',
     padding: '0.3rem',
     textDecoration: 'none',
-    transition: easeInOut('background-color'),
+    transition: 'background-color 0.125s ease-in-out',
 
     '&:hover': {
         backgroundColor: fgColor(0.25),
