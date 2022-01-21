@@ -1,4 +1,5 @@
 import Anchor from '@/shared/common/Anchor';
+import { fgColor } from '@/util/style';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -10,7 +11,10 @@ export type NavigationItemProps = {
 };
 
 const NavigationAnchor = styled(Anchor)<{ active?: boolean; }>(({ active }) => ({
-    ...(active && { fontWeight: 600 }),
+    ...(active && {
+        color: fgColor(),
+        fontWeight: 600,
+    }),
 }));
 
 const NavigationItem: FC<NavigationItemProps> = ({ children, href }) => {

@@ -32,7 +32,7 @@ const Introduction: FC<IntroductionProps> = () => {
         <Section>
             <Text>
                 <Title size={TitleSize.XL} noMargin>
-                    Hey, this is <UnderlinedText>Jalu</UnderlinedText>.
+                    Hey, this is <UnderlinedText>Jalu</UnderlinedText>
                 </Title>
                 <Subtitle>
                     Full Stack Webdeveloper from Germany.

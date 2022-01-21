@@ -7,5 +7,5 @@ export const bgColor = (opacity = 1) => {
 };
 
 export const linearGradient = (direction = 'to right') => {
-    return `linear-gradient(${direction}, rgb(248, 212, 83), rgb(255, 93, 91))`;
+    return `linear-gradient(${direction}, rgb(83, 248, 225) 33.33%, rgb(127, 91, 255))`;
 };

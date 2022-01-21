@@ -21,7 +21,7 @@ const Card = styled.article({
     '::before': {
         opacity: 0,
         background: linearGradient(),
-        transition: 'opacity 0.25s ease-in-out',
+        transition: 'opacity 0.225s ease-in-out',
         borderRadius: 'inherit',
         content: '""',
         display: 'block',

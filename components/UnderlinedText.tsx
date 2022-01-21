@@ -16,13 +16,13 @@ const Underline = styled.span({
         height: '3px',
         borderRadius: '5px',
         background: linearGradient(),
-        transition: 'all 0.3s ease-in-out',
+        transition: 'all 0.225s ease-in-out',
     },
 
     '&:hover::after': {
-        top: '-5px',
+        top: 0,
         height: '100%',
-        filter: 'brightness(0.9)',
+        filter: 'brightness(0.8)',
     },
 });
 
