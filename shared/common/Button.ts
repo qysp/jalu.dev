@@ -1,7 +1,9 @@
-import { fgColor } from '@/util/style';
+import { cubicBezier, fgColor } from '@/util/style';
 import styled from '@emotion/styled';
 
-const Button = styled.button({
+export type ButtonProps = {};
+
+const Button = styled.button<ButtonProps>({
     cursor: 'pointer',
     backgroundColor: fgColor(0.125),
     color: fgColor(),
@@ -9,10 +11,10 @@ const Button = styled.button({
     border: 'none',
     padding: '0.3rem',
     textDecoration: 'none',
-    transition: 'background-color 0.125s ease-in-out',
+    transition: `background-color 0.125s ${cubicBezier()}`,
 
     '&:hover': {
-        backgroundColor: fgColor(0.25),
+        backgroundColor: fgColor(0.2),
     }
 });
 

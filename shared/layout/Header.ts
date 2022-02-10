@@ -1,11 +1,10 @@
+import base from '@/shared/layout/base';
 import styled from '@emotion/styled';
 
 const Header = styled.header({
+    ...base,
     display: 'flex',
     justifyContent: 'space-between',
-    padding: '1rem 2rem',
-    maxWidth: '100vw',
-    minWidth: 'min(42rem, 100vw)',
 });
 
 export default Header;

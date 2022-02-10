@@ -14,6 +14,7 @@ export type TitleProps = {
     size?: TitleSize;
     noMargin?: boolean;
     fitContent?: boolean;
+    light?: boolean;
 };
 
 const Title = styled.h1<TitleProps>({
@@ -22,10 +23,12 @@ const Title = styled.h1<TitleProps>({
     size = TitleSize.MD,
     noMargin = false,
     fitContent = false,
+    light = false,
 }) => ({
     fontSize: `${size}rem`,
     ...(noMargin && { margin: 0 }),
     ...(fitContent && { width: 'fit-content' }),
+    ...(light && { fontWeight: 'lighter' }),
 }));
 
 export default Title;

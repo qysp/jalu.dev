@@ -1,10 +1,15 @@
-import { linearGradient } from '@/util/style';
+import { cubicBezier, linearGradient } from '@/util/style';
 import styled from '@emotion/styled';
 import { FC } from 'react';
 
-export type UnderlinedTextProps = {};
+export type UnderlinedTextProps = UnderlineProps;
 
-const Underline = styled.span({
+type UnderlineProps = {
+    withTransition?: boolean;
+    direction?: string;
+};
+
+const Underline = styled.span<UnderlineProps>({
     position: 'relative',
 
     '::after': {
@@ -16,24 +21,34 @@ const Underline = styled.span({
         height: '3px',
         borderRadius: '5px',
         background: linearGradient(),
-        transition: 'all 0.225s ease-in-out',
+        transition: `all 0.15s ${cubicBezier()}`,
     },
-
-    '&:hover::after': {
-        top: 0,
-        height: '100%',
-        filter: 'brightness(0.8)',
+}, ({
+    withTransition = false,
+    direction,
+}) => ({
+    '::after': {
+        ...(direction && {
+            background: linearGradient(direction),
+        }),
     },
-});
+    ...(withTransition && {
+        '&:hover::after': {
+            top: 0,
+            height: '100%',
+            filter: 'brightness(0.8)',
+        },
+    }),
+}));
 
 const Relative = styled.span({
     position: 'relative',
     zIndex: 1,
 });
 
-const UnderlinedText: FC<UnderlinedTextProps> = ({ children }) => {
+const UnderlinedText: FC<UnderlinedTextProps> = ({ children, ...props }) => {
     return (
-        <Underline>
+        <Underline {...props}>
             <Relative>
                 {children}
             </Relative>

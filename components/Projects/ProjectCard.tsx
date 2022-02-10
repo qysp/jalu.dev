@@ -1,6 +1,6 @@
 import ExternalLink from '@/components/ExternalLink';
 import Title, { TitleSize } from '@/shared/typography/Title';
-import { linearGradient } from '@/util/style';
+import { cubicBezier, linearGradient } from '@/util/style';
 import styled from '@emotion/styled';
 import { FC } from 'react';
 
@@ -21,7 +21,7 @@ const Card = styled.article({
     '::before': {
         opacity: 0,
         background: linearGradient(),
-        transition: 'opacity 0.225s ease-in-out',
+        transition: `opacity 0.15s ${cubicBezier()}`,
         borderRadius: 'inherit',
         content: '""',
         display: 'block',

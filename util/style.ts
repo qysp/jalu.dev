@@ -9,3 +9,7 @@ export const bgColor = (opacity = 1) => {
 export const linearGradient = (direction = 'to right') => {
     return `linear-gradient(${direction}, rgb(83, 248, 225) 33.33%, rgb(127, 91, 255))`;
 };
+
+export const cubicBezier = () => {
+    return 'cubic-bezier(.58, .18, .76, 1)';
+};
