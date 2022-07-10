@@ -9,14 +9,14 @@ class Document extends NextDocument {
                 <Head>
                     <link
                         rel="preload"
-                        href="fonts/Satoshi-Variable.woff2"
+                        href="/fonts/Satoshi-Variable.woff2"
                         type="font/woff2"
                         as="font"
                         crossOrigin="anonymous"
                     />
                     <link rel="icon" href="/favicons/favicon.ico" />
                     <link
-                        href="/static/favicons/site.webmanifest"
+                        href="/site.webmanifest"
                         rel="manifest"
                     />
                     <meta name="robots" content="noindex, nofollow" />

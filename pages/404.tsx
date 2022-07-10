@@ -26,7 +26,7 @@ const NotFound: NextPage = () => {
     return (
         <Container title="404 - Jalu">
             <Section>
-                <Image src={pageNotFound} alt="404" height={384} />
+                <Image src={pageNotFound} alt="404" height={384} priority />
                 <Centered>
                     <Title size={TitleSize.XL} fitContent>
                         Oh no, this page is {''}
