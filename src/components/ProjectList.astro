@@ -1,0 +1,43 @@
+---
+import ProjectCard from "@components/ProjectCard.astro";
+---
+
+<ul role="list" aria-label="My latest projects">
+  <li>
+    <ProjectCard
+      title="Rain-Maker"
+      subtitle="Business website"
+      body="Hosting & development"
+      href="https://rain-maker.eu/"
+    />
+  </li>
+  <li>
+    <ProjectCard
+      title="Stay tuned!"
+      subtitle="&nbsp;"
+      body="More will follow"
+      href="https://github.com/qysp"
+    />
+  </li>
+  <li>
+    <ProjectCard
+      title="Want to get in touch?"
+      subtitle="&nbsp;"
+      body="Contact me via moin@jalu.dev"
+      href="mailto:moin@jalu.dev"
+    />
+  </li>
+</ul>
+
+<style lang="scss">
+  ul {
+    display: grid;
+    grid-gap: 1rem;
+    grid-auto-rows: 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));
+
+    > li {
+      list-style: none;
+    }
+  }
+</style>

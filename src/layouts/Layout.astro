@@ -1,0 +1,88 @@
+---
+import Footer from "@components/Footer.astro";
+
+export interface Props {
+  title: string;
+}
+
+const { title } = Astro.props as Props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="any" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot></slot>
+    <Footer />
+    <style lang="scss">
+      :root {
+        --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+          Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+        --font-size-base: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
+        --font-size-xs: clamp(0.55rem, 0.14vw + 0.54rem, 0.87rem);
+        --font-size-sm: clamp(0.8rem, 0.2vw + 0.69rem, 1.05rem);
+        --font-size-md: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
+        --font-size-lg: clamp(1.2rem, 0.7vw + 1.2rem, 1.5rem);
+        --font-size-xl: clamp(2.5rem, 2.38vw + 1.85rem, 3.75rem);
+
+        --color-text: hsl(10, 21%, 95%);
+        --color-bg: rgb(21, 21, 21);
+
+        --color-gradient-from: rgb(83, 248, 225);
+        --color-gradient-to: rgb(127, 91, 255);
+      }
+
+      html {
+        font-size: var(--font-size-base);
+        color: var(--color-text);
+        background-color: var(--color-bg);
+        min-height: 100vh;
+      }
+
+      body {
+        font-family: var(--font-family);
+        margin-inline: max((100% - 62rem) / 2, 1.25rem);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+    <style lang="scss" is:global>
+      *,
+      ::before,
+      ::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      // Visually hidden rule; credits to Bootstrap v5.
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        white-space: nowrap;
+        border: 0;
+      }
+
+      .gradient-text {
+        background: linear-gradient(
+          to right,
+          var(--color-gradient-from) 33.33%,
+          var(--color-gradient-to)
+        );
+        background-clip: text;
+        color: transparent;
+      }
+    </style>
+  </body>
+</html>

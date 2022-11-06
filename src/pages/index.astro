@@ -1,0 +1,38 @@
+---
+import ProjectList from "@components/ProjectList.astro";
+import Layout from "@layouts/Layout.astro";
+---
+
+<Layout title="Moin!">
+  <header>
+    <h1>Hey, I'm <span class="gradient-text">Jalu</span></h1>
+    <p>Full Stack Webdeveloper from Germany.</p>
+  </header>
+  <main>
+    <section>
+      <ProjectList />
+    </section>
+  </main>
+</Layout>
+
+<style lang="scss">
+  header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(0.5rem, 5vh, 3rem) 0;
+
+    > h1 {
+      font-size: var(--font-size-xl);
+      text-align: center;
+    }
+
+    > p {
+      text-align: center;
+    }
+  }
+
+  main {
+    flex-grow: 1;
+  }
+</style>

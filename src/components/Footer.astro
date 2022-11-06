@@ -1,0 +1,65 @@
+---
+---
+
+<footer>
+  <nav>
+    <ul>
+      <li>
+        <a
+          href="https://github.com/qysp"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GitHub
+        </a>
+      </li>
+    </ul>
+  </nav>
+</footer>
+
+<style lang="scss">
+  footer {
+    padding: clamp(0.5rem, 5vh, 1.5rem) 0;
+    display: flex;
+    justify-content: center;
+
+    > nav {
+      > ul {
+        > li {
+          list-style: none;
+
+          > a {
+            text-decoration: none;
+            position: relative;
+            color: var(--color-text);
+            transition: color 0.3s cubic-bezier(0.3, 1.1, 0.68, 0.98);
+
+            &::before {
+              content: "";
+              position: absolute;
+              z-index: -1;
+              background: linear-gradient(
+                to right,
+                var(--color-gradient-from) 33.33%,
+                var(--color-gradient-to)
+              );
+              border-radius: 0.25rem;
+              block-size: 0.125rem;
+              inset-block-end: 0;
+              inset-inline: 0;
+              transition: block-size 0.25s cubic-bezier(0.3, 1.1, 0.68, 0.98);
+            }
+
+            &:hover {
+              color: var(--color-bg);
+
+              &::before {
+                block-size: 1.15rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+</style>
