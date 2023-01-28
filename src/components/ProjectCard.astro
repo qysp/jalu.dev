@@ -32,7 +32,7 @@ const { title, subtitle, body, href } = Astro.props as Props;
 
 <style lang="scss">
   article {
-    --color-bg: rgb(34, 34, 34);
+    --color-bg: hsl(0, 0%, 13%);
 
     position: relative;
     display: flex;
@@ -71,8 +71,8 @@ const { title, subtitle, body, href } = Astro.props as Props;
     }
 
     > header {
-      border-top-left-radius: 0.2rem;
-      border-top-right-radius: 0.2rem;
+      border-top-left-radius: 0.25rem;
+      border-top-right-radius: 0.25rem;
       padding: 0.5rem 0.5rem 0.25rem 0.5rem;
 
       > .title {
@@ -94,8 +94,8 @@ const { title, subtitle, body, href } = Astro.props as Props;
     }
 
     main {
-      border-bottom-left-radius: 0.2rem;
-      border-bottom-right-radius: 0.2rem;
+      border-bottom-left-radius: 0.25rem;
+      border-bottom-right-radius: 0.25rem;
       padding: 0.25rem 0.5rem 0.5rem 0.5rem;
     }
 
