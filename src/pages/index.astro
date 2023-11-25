@@ -1,19 +1,29 @@
 ---
+import About from "@components/About.astro";
 import ProjectList from "@components/ProjectList.astro";
-import Layout from "@layouts/Layout.astro";
+import PageLayout from "@layouts/PageLayout.astro";
 ---
 
-<Layout title="Moin!">
+<PageLayout title="Hey!">
   <header>
-    <h1>Hey, I'm <span class="gradient-text">Jalu</span></h1>
-    <p>Full Stack Webdeveloper from Germany.</p>
+    <h1>Hey, I'm <span class="gradient-text">Jannik</span></h1>
+    <p>A Full Stack Web Developer from Germany</p>
   </header>
   <main>
     <section>
+      <h2>
+        <span class="gradient-text">About me</span>
+      </h2>
+      <About />
+    </section>
+    <section>
+      <h2>
+        <span class="gradient-text">Projects</span>
+      </h2>
       <ProjectList />
     </section>
   </main>
-</Layout>
+</PageLayout>
 
 <style lang="scss">
   header {
@@ -34,5 +44,12 @@ import Layout from "@layouts/Layout.astro";
 
   main {
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    > section > h2 {
+      margin-bottom: 0.5rem;
+    }
   }
 </style>

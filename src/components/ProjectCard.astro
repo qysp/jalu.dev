@@ -4,17 +4,20 @@ export interface Props {
   subtitle: string;
   body: string;
   href: string;
+  external: boolean;
 }
 
-const { title, subtitle, body, href } = Astro.props as Props;
+const { title, subtitle, body, href, external } = Astro.props as Props;
+const target = external ? "_blank" : "_self";
+const rel = external ? "external noopener noreferrer" : null;
 ---
 
 <article>
   <header>
-    <h2 class="title">
+    <h3 class="title">
       {title}
       <span class="gradient-text arrow" aria-hidden="true">&rarr;</span>
-    </h2>
+    </h3>
     <span class="subtitle">
       {subtitle}
     </span>
@@ -22,7 +25,7 @@ const { title, subtitle, body, href } = Astro.props as Props;
   <main>
     {body}
   </main>
-  <a href={href} target="_blank" rel="noopener noreferrer">
+  <a href={href} target={target} rel={rel}>
     <span class="visually-hidden">
       Visit project website:
       {title}
@@ -34,6 +37,7 @@ const { title, subtitle, body, href } = Astro.props as Props;
   article {
     --color-bg: hsl(0, 0%, 13%);
 
+    height: 100%;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -97,6 +101,7 @@ const { title, subtitle, body, href } = Astro.props as Props;
       border-bottom-left-radius: 0.25rem;
       border-bottom-right-radius: 0.25rem;
       padding: 0.25rem 0.5rem 0.5rem 0.5rem;
+      flex-grow: 1;
     }
 
     > a {

@@ -5,26 +5,29 @@ import ProjectCard from "@components/ProjectCard.astro";
 <ul role="list" aria-label="My latest projects">
   <li>
     <ProjectCard
-      title="Rain-Maker"
-      subtitle="Business website"
-      body="Hosting & development"
-      href="https://rain-maker.eu/"
+      title="Photosmarter"
+      subtitle="Recent project"
+      body="A responsive web interface to scan documents with the HP Photosmart."
+      href="https://github.com/qysp/photosmarter"
+      external={true}
     />
   </li>
   <li>
     <ProjectCard
-      title="Stay tuned!"
-      subtitle="&nbsp;"
-      body="More will follow"
-      href="https://github.com/qysp"
+      title="Keymaps"
+      subtitle="Hobby"
+      body="Personal keymaps for my QMK keyboards"
+      href="https://github.com/qysp/keymaps"
+      external={true}
     />
   </li>
   <li>
     <ProjectCard
       title="Want to get in touch?"
-      subtitle="&nbsp;"
-      body="Contact me via moin@jalu.dev"
-      href="mailto:moin@jalu.dev"
+      subtitle="Contact"
+      body="Contact me via hey@jalu.dev"
+      href="mailto:hey@jalu.dev"
+      external={false}
     />
   </li>
 </ul>
