@@ -3,11 +3,12 @@ export interface Props {
   title: string;
   subtitle: string;
   body: string;
+  tags?: string[];
   href: string;
   external: boolean;
 }
 
-const { title, subtitle, body, href, external } = Astro.props as Props;
+const { title, subtitle, body, tags, href, external } = Astro.props as Props;
 const target = external ? "_blank" : "_self";
 const rel = external ? "external noopener noreferrer" : null;
 ---
@@ -23,7 +24,14 @@ const rel = external ? "external noopener noreferrer" : null;
     </span>
   </header>
   <main>
-    {body}
+    <p class="body">{body}</p>
+    {tags && (
+      <p class="tags">
+        {tags.map((tag) => (
+          <span>#{tag}</span>
+        ))}
+      </p>
+    )}
   </main>
   <a href={href} target={target} rel={rel}>
     <span class="visually-hidden">
@@ -102,6 +110,21 @@ const rel = external ? "external noopener noreferrer" : null;
       border-bottom-right-radius: 0.25rem;
       padding: 0.25rem 0.5rem 0.5rem 0.5rem;
       flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      > .body {
+        flex-grow: 1;
+      }
+
+      > .tags {
+        align-self: flex-end;
+        width: 100%;
+        display: flex;
+        gap: 0.5rem;
+        font-size: var(--font-size-sm);
+      }
     }
 
     > a {

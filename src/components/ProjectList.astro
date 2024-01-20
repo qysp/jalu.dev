@@ -7,7 +7,8 @@ import ProjectCard from "@components/ProjectCard.astro";
     <ProjectCard
       title="Photosmarter"
       subtitle="Recent project"
-      body="A responsive web interface to scan documents with the HP Photosmart."
+      body="A responsive web interface & matching mobile app to scan documents with the HP Photosmart."
+      tags={["solidjs", "flutter"]}
       href="https://github.com/qysp/photosmarter"
       external={true}
     />
@@ -17,7 +18,8 @@ import ProjectCard from "@components/ProjectCard.astro";
       title="Keymaps"
       subtitle="Hobby"
       body="Personal keymaps for my QMK keyboards"
-      href="https://github.com/qysp/keymaps"
+      tags={["qmk"]}
+      href="https://github.com/qysp/qmk_userspace"
       external={true}
     />
   </li>
@@ -36,7 +38,6 @@ import ProjectCard from "@components/ProjectCard.astro";
   ul {
     display: grid;
     grid-gap: 1rem;
-    grid-auto-rows: 1fr;
     grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));
 
     > li {
