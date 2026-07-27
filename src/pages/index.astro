@@ -1,55 +1,58 @@
 ---
-import About from "@components/About.astro";
-import ProjectList from "@components/ProjectList.astro";
-import PageLayout from "@layouts/PageLayout.astro";
+import ExternalLink from "@components/ExternalLink.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { site } from "@data/site";
 ---
 
-<PageLayout title="Hey!">
-  <header>
-    <h1>Hey, I'm <span class="gradient-text">Jannik</span></h1>
-    <p>A Full Stack Web Developer from Germany</p>
-  </header>
-  <main>
-    <section>
-      <h2>
-        <span class="gradient-text">About me</span>
-      </h2>
-      <About />
-    </section>
-    <section>
-      <h2>
-        <span class="gradient-text">Projects</span>
-      </h2>
-      <ProjectList />
-    </section>
+<BaseLayout>
+  <main class="flex flex-col gap-10">
+    <header>
+      <h1 class="text-name font-medium tracking-[-0.015em]">{site.name}</h1>
+      <p class="text-ink-2 mt-3 text-pretty">
+        {site.role} at <ExternalLink href={site.employer.href}
+          >{site.employer.name}</ExternalLink
+        >. Based in {site.country}.
+      </p>
+    </header>
+
+    {
+      /* role="list" because Tailwind's preflight sets list-style: none, which
+        makes Safari/VoiceOver drop the list semantics. */
+    }
+    <ul
+      role="list"
+      class="text-link flex flex-col items-start gap-1.5 font-mono"
+    >
+      {
+        site.links.map((link) =>
+          link.href.startsWith("http") ? (
+            <li>
+              {/* py-1 lifts the tap target clear of the 24px floor in
+                  WCAG 2.5.8; the text alone is ~23px tall. */}
+              <ExternalLink href={link.href} class="py-1">
+                {link.label}
+              </ExternalLink>
+            </li>
+          ) : (
+            <li>
+              <a href={link.href} class="inline-block py-1">
+                {link.label}
+              </a>
+            </li>
+          ),
+        )
+      }
+    </ul>
   </main>
-</PageLayout>
 
-<style lang="scss">
-  header {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: clamp(0.5rem, 5vh, 3rem) 0;
-
-    > h1 {
-      font-size: var(--font-size-xl);
-      text-align: center;
+  <footer class="rule-pride text-meta text-ink-2 pt-5">
+    <p>Built with Astro. Set in Newsreader.</p>
+    {
+      /* Only ever seen by someone browsing with scripting disabled — on a page
+        that ships none regardless. See the custom variant in global.css. */
     }
-
-    > p {
-      text-align: center;
-    }
-  }
-
-  main {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-
-    > section > h2 {
-      margin-bottom: 0.5rem;
-    }
-  }
-</style>
+    <p class="scripting-none:block mt-1 hidden">
+      JavaScript is off in your browser. There was never any here.
+    </p>
+  </footer>
+</BaseLayout>

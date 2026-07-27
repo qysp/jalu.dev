@@ -1,0 +1,304 @@
+/* Hallmark · macrostructure: Index-First · genre: editorial · tone: quiet
+ * theme: custom · vibe: "soft, warm, unhurried, understated"
+ * paper:  light oklch(98.4% 0.005 85)  / dark oklch(19.5% 0.008 65)
+ * accent: light oklch(54% 0.115 42)    / dark oklch(80% 0.085 48)  — clay / apricot
+ * axes: light+dark band · roman-serif · warm accent
+ * display + body: Newsreader Variable · meta: system mono
+ * nav: none (single destination) · footer: Ft2 inline-rule
+ * enrichment: none (typography only) · motion: one 120ms colour transition
+ * pre-emit critique: P5 H5 E5 S5 R5 V4
+ */
+
+@import "tailwindcss";
+
+/* Reveals an element only when the visitor has scripting turned off. This page
+ * ships none either way — see the `scripting-none:` utility in index.astro.
+ * `scripting` is Baseline Widely Available; where unsupported the query simply
+ * never matches, which is the correct fallback. */
+@custom-variant scripting-none (@media (scripting: none));
+
+/* Newsreader, latin subset, weight axis only — declared by hand rather than
+ * importing `@fontsource-variable/newsreader/wght.css`, which also declares
+ * the latin-ext and vietnamese subsets. Those never download (unicode-range
+ * rules them out) but they *do* get emitted into `dist/`, so importing the
+ * package stylesheet costs ~47 KB of dead weight in the deploy artifact.
+ * The latin range covers all of latin-1, so German umlauts and ß are fine.
+ * unicode-range copied verbatim from the package's own wght.css. */
+@font-face {
+  font-family: "Newsreader Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url("@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2")
+    format("woff2-variations");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
+@theme {
+  /* Type ------------------------------------------------------------- */
+  --font-serif:
+    "Newsreader Variable", ui-serif, Georgia, "Times New Roman", serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
+    monospace;
+
+  /* Fluid scale — sized against the viewport, so there are no breakpoints */
+  --text-name: clamp(1.75rem, 1.5rem + 1.2vw, 2.5rem);
+  --text-body: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  /* The two links are the page's only actions, so they sit near body size.
+   * Slightly below it because the mono face runs optically larger. */
+  --text-link: clamp(0.9375rem, 0.91rem + 0.14vw, 1.0625rem);
+  --text-meta: clamp(0.8125rem, 0.79rem + 0.12vw, 0.875rem);
+
+  /* Colour — one token per role. `light-dark()` carries both schemes, so the
+   * palette needs no `prefers-color-scheme` query. Chroma is capped at 0.115;
+   * hue sits at 42–48° (clay → apricot). Nothing here is pure black or white.
+   *
+   * Measured against paper, WCAG 2.1:
+   *   ink    14.5:1 light · 14.4:1 dark
+   *   ink-2   6.1:1 light ·  6.6:1 dark
+   *   accent  5.1:1 light ·  9.6:1 dark
+   *
+   * The dark accent is a genuine pastel. The light one can't be: any tint
+   * pale enough to read as pastel drops link text below 4.5:1 on paper this
+   * bright, so light mode gets a muted clay instead. */
+  --color-paper: light-dark(oklch(98.4% 0.005 85), oklch(19.5% 0.008 65));
+  --color-ink: light-dark(oklch(27% 0.012 65), oklch(92% 0.008 80));
+  --color-ink-2: light-dark(oklch(50% 0.012 65), oklch(69% 0.011 72));
+  --color-rule: light-dark(oklch(87% 0.008 85), oklch(34% 0.01 65));
+  --color-accent: light-dark(oklch(54% 0.115 42), oklch(80% 0.085 48));
+
+  /* Measure ---------------------------------------------------------- */
+  --container-measure: 34rem;
+
+  /* Card ------------------------------------------------------------- */
+  /* ISO/IEC 7810 ID-1 — the dimensions of a credit card. Used by the print
+   * stylesheet at the bottom of this file. */
+  --card-width: 85.6mm;
+  --card-height: 53.98mm;
+
+  /* Motion ----------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  :root {
+    /* Opts the document into both schemes and makes `light-dark()` resolve
+     * against the operating system's preference. */
+    color-scheme: light dark;
+
+    /* The hairline above the colophon, in six bands.
+     *
+     * Lightness and chroma are locked to --color-rule; only the hue moves.
+     * Measured relative-luminance spread across the six is 3.5% in light and
+     * 8.7% in dark, and each band lands within 0.02 of the flat rule's 1.42:1
+     * contrast against paper — so it reads as one ordinary hairline until
+     * someone looks closely. That is the intent.
+     *
+     * This is the `linear-gradient` function, but there is no gradient in it:
+     * every stop is doubled (`0 16.667%`) to produce hard edges, so the result
+     * is six flat bands. The alternative — six spans in a flex row — costs six
+     * DOM nodes for a pixel-identical result. */
+    --rule-pride: linear-gradient(
+      to right,
+      light-dark(oklch(87% 0.04 25), oklch(34% 0.04 25)) 0 16.667%,
+      light-dark(oklch(87% 0.04 70), oklch(34% 0.04 70)) 0 33.333%,
+      light-dark(oklch(87% 0.04 100), oklch(34% 0.04 100)) 0 50%,
+      light-dark(oklch(87% 0.04 145), oklch(34% 0.04 145)) 0 66.667%,
+      light-dark(oklch(87% 0.04 250), oklch(34% 0.04 250)) 0 83.333%,
+      light-dark(oklch(87% 0.04 310), oklch(34% 0.04 310)) 0 100%
+    );
+  }
+
+  /* Replaces a 1px border-top. Applied to the footer in index.astro. */
+  .rule-pride {
+    background-image: var(--rule-pride);
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-size: 100% 1px;
+    /* Without this the bands are dropped from the printed card, which is the
+     * one place they are meant to be plainly visible. */
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* Windows High Contrast discards background images. A rule about inclusion
+   * should not be the thing that vanishes in an accessibility mode. */
+  @media (forced-colors: active) {
+    .rule-pride {
+      background-image: none;
+      border-top: 1px solid CanvasText;
+    }
+  }
+
+  html {
+    /* `clip` rather than `hidden`: `hidden` on the root turns the element
+     * into a scroll container and breaks `position: sticky` descendants. */
+    overflow-x: clip;
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-serif);
+    font-size: var(--text-body);
+    line-height: 1.55;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    overflow-x: clip;
+  }
+
+  h1 {
+    /* Long words break inside rather than pushing the page sideways. */
+    overflow-wrap: anywhere;
+    min-width: 0;
+  }
+
+  a {
+    color: var(--color-accent);
+    text-decoration-line: underline;
+    text-decoration-thickness: from-font;
+    text-underline-offset: 0.2em;
+    transition: color 120ms var(--ease-out);
+  }
+
+  a:hover {
+    color: var(--color-ink);
+  }
+
+  /* Shows instantly and is never animated — an animated ring is a
+   * keyboard-user hazard, not a flourish. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 1px;
+    transition: none;
+  }
+
+  /* The only media queries in the project are user-preference queries.
+   * There are no width breakpoints anywhere — layout is intrinsic and type
+   * is fluid via clamp(). */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Print — the page becomes a business card ---------------------------------
+ *
+ * Not a printed web page: the page box is set to ISO/IEC 7810 ID-1, so ⌘P or
+ * Save-as-PDF yields an 85.6 × 54 mm calling card. Nothing here is reachable
+ * on screen, and none of it changes the DOM — the same markup is simply laid
+ * out for paper.
+ *
+ * The paper is left unprinted rather than flooded with the warm background:
+ * it keeps the card usable on a real printer instead of only as a PDF. */
+@media print {
+  @page {
+    /* Literals, not the tokens below. `@page` sits outside the document tree
+     * and custom-property resolution there is not reliable across engines —
+     * Chrome resolves them, but where an engine doesn't, `size` becomes
+     * invalid and silently falls back to A4. 85.6 × 53.98 mm = ISO/IEC 7810
+     * ID-1. Keep in sync with --card-height below. */
+    size: 85.6mm 53.98mm;
+    margin: 0;
+  }
+
+  :root {
+    /* Load-bearing. Every colour is a `light-dark()` pair resolved against the
+     * computed color-scheme, so without this a visitor reading in dark mode
+     * would print a black card. */
+    color-scheme: light;
+  }
+
+  html {
+    background: none;
+    /* The fluid scale is sized in `vw`. Inside an 85.6 mm page box that
+     * collapses to the clamp floor, so print gets fixed physical sizes. */
+    font-size: 7pt;
+    line-height: 1.4;
+  }
+
+  /* Undo the screen layout — full-height centring, measure cap, padding —
+   * and rebuild it as a card: name at the top, contact and the hairline
+   * along the bottom edge. Height is taken from the token rather than 100vh
+   * so it does not depend on how a renderer maps viewport units onto a page
+   * box; @page margin is 0, so the page box is exactly the card. */
+  .page {
+    display: flex;
+    flex-direction: column;
+    height: var(--card-height);
+    min-height: 0;
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 6mm 8mm;
+    gap: 0;
+  }
+
+  main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0;
+  }
+
+  h1 {
+    font-size: 13pt;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  header p {
+    font-size: 7pt;
+    margin: 1.5mm 0 0;
+  }
+
+  /* The two links sit side by side along the foot of the card. */
+  main ul {
+    display: flex;
+    flex-direction: row;
+    gap: 6mm;
+    margin: 0;
+    font-size: 6.5pt;
+  }
+
+  main ul a {
+    padding: 0;
+  }
+
+  /* Nothing left in the footer but the hairline, ruled under the contacts.
+   * It needs an explicit height: with its paragraphs hidden the element has
+   * no content and no padding, so the padding box collapses to zero and a
+   * 1px background has nothing to paint into. */
+  footer {
+    min-height: 1px;
+    margin-top: 2mm;
+    padding-top: 0;
+  }
+
+  /* An arrow meaning "opens in a new tab" is nonsense on paper. */
+  a svg {
+    display: none;
+  }
+
+  /* Underlines add noise at this size; the card is not clickable. */
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* The colophon and the scripting note are screen furniture. */
+  footer p {
+    display: none;
+  }
+}

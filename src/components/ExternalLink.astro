@@ -1,0 +1,43 @@
+---
+/**
+ * An anchor to somewhere off this site: opens in a new tab, is safe against
+ * reverse-tabnabbing, and carries a diagonal arrow.
+ *
+ * The arrow is an inline SVG rather than the `↗` character (U+2197) on
+ * purpose — that codepoint falls outside Newsreader's latin subset, so as a
+ * glyph it would silently render from a fallback font at the wrong weight.
+ *
+ * The `&#32;` in front of the screen-reader note is deliberate: a literal
+ * leading space there would be stripped as JSX-style whitespace, and the
+ * label would be announced run together with the note.
+ */
+interface Props {
+  href: string;
+  class?: string;
+}
+
+const { href, class: className } = Astro.props;
+---
+
+<a
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  class:list={["inline-flex items-baseline gap-[0.25em]", className]}
+>
+  <slot />
+  <svg
+    viewBox="0 0 10 10"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.25"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+    class="inline-block size-[0.6em] shrink-0 translate-y-[-0.05em]"
+  >
+    <path d="M2.6 7.4 7.4 2.6"></path>
+    <path d="M3.6 2.6h3.8v3.8"></path>
+  </svg>
+  <span class="sr-only">&#32;(opens in a new tab)</span>
+</a>

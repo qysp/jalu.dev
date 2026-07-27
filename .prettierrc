@@ -2,5 +2,11 @@
   "tabWidth": 2,
   "printWidth": 80,
   "singleQuote": false,
-  "jsxSingleQuote": false
+  "plugins": ["prettier-plugin-astro", "prettier-plugin-tailwindcss"],
+  "overrides": [
+    {
+      "files": "*.astro",
+      "options": { "parser": "astro" }
+    }
+  ]
 }

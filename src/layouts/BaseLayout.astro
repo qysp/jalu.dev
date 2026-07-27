@@ -1,0 +1,70 @@
+---
+import "@styles/global.css";
+
+import Seo from "@components/Seo.astro";
+import { site } from "@data/site";
+
+/* The page is text on paper, so the webfont is the LCP resource. Preloading
+ * starts the fetch before the stylesheet has been parsed. This resolves to
+ * the same file as the @font-face in global.css, so Vite emits one asset. */
+import newsreaderLatin from "@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2?url";
+---
+
+<!doctype html>
+<html lang={site.locale}>
+  <!--
+    Hello, curious person.
+
+    No analytics. No cookies. No third-party requests. No JavaScript.
+    Nothing here watches you and that's a position.
+
+    Things worth defending, on the web and off it: freedom, privacy, peace,
+    democracy, tolerance, and everyone's right to be who they are and love
+    who they love.
+
+    — Jannik
+  -->
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {
+      /* Not vanity: the page genuinely loads nothing off-origin, so this can be
+        enforced rather than promised. Production-only because `astro dev`
+        injects HMR scripts and inline styles that `script-src 'none'` would
+        block. `frame-ancestors` is omitted deliberately — it is inert in a
+        <meta> CSP, and GitHub Pages cannot set response headers, so including
+        it would imply a protection that isn't actually there. */
+    }
+    {
+      import.meta.env.PROD && (
+        <meta
+          http-equiv="Content-Security-Policy"
+          content="default-src 'self'; script-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
+        />
+      )
+    }
+    {/* Protects the visitor on the way out to GitHub, not this site. */}
+    <meta name="referrer" content="no-referrer" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href={newsreaderLatin}
+      crossorigin
+    />
+    <Seo />
+  </head>
+  <body>
+    {
+      /* `page` is not styling — it's the hook the print stylesheet uses to
+        rebuild this wrapper as a business card. See @media print. */
+    }
+    <div
+      class="page max-w-measure mx-auto flex min-h-dvh w-full flex-col justify-center gap-12 px-5 py-16"
+    >
+      <slot />
+    </div>
+  </body>
+</html>
